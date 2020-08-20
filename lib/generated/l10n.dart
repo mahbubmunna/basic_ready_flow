@@ -8,18 +8,24 @@ import 'intl/messages_all.dart';
 // Made by Localizely
 // **************************************************************************
 
+// ignore_for_file: non_constant_identifier_names, lines_longer_than_80_chars
+
 class S {
   S();
+  
+  static S current;
   
   static const AppLocalizationDelegate delegate =
     AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final String name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
-    final String localeName = Intl.canonicalizedLocale(name);
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
-      return S();
+      S.current = S();
+      
+      return S.current;
     });
   } 
 
@@ -27,6 +33,7 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Home`
   String get home {
     return Intl.message(
       'Home',
@@ -36,6 +43,7 @@ class S {
     );
   }
 
+  /// `Notifications`
   String get notifications {
     return Intl.message(
       'Notifications',
@@ -51,7 +59,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en'), Locale.fromSubtags(languageCode: 'bn', countryCode: 'BD'),
+      Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'bn'),
     ];
   }
 
@@ -64,7 +73,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   bool _isSupported(Locale locale) {
     if (locale != null) {
-      for (Locale supportedLocale in supportedLocales) {
+      for (var supportedLocale in supportedLocales) {
         if (supportedLocale.languageCode == locale.languageCode) {
           return true;
         }

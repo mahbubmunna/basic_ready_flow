@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:basicreadyflow/config/app_config.dart' as config;
 import 'package:basicreadyflow/src/repository/settings_repository.dart' as settingRepo;
+import 'package:get/get.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'generated/l10n.dart';
 
@@ -84,7 +85,7 @@ class MyApp extends StatelessWidget {
               valueListenable: settingRepo.locale,
               builder: (context, Locale value, _) {
                 print(value);
-                return MaterialApp(
+                return GetMaterialApp(
                   title: 'Basic Starter',
                   initialRoute: '/',
                   onGenerateRoute: RouteGenerator.generateRoute,
